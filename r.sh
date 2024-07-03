@@ -53,6 +53,7 @@ if [ -f $target ]; then
         exit 1
     fi
     echo 'COMPILEMD!!!'
+    valgrind --tool=memcheck --leak-check=yes ./a.out
     printf "*-*-*-*-*-*-*-*-*-*-*result*-*-*-*-*-*-*-*-*-*-*\n\n"
     ./a.out
 else
