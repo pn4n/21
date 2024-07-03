@@ -10,7 +10,7 @@ stupid_glags="-fsanitize=address -fsanitize=leak -fsanitize=undefined -fsanitize
 # Function to print usage
 usage() {
     echo "\nUsage:  $0  \t\t| run test.c\n"
-    echo "\t$0 file.c \t| file.c\n"
+    echo "\t$0 file.c \t| run file.c\n"
     echo "\t$0 -m file.c \t| run file.c and link math\n"
     echo "\t$0 -v file.c \t| run file.c anf valgrind\n"
     exit 1
