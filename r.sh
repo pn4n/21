@@ -1,20 +1,29 @@
 #!/bin/bash
 
-# Initialize flag variable
+#math
 link=false
+#valgrind
+grinder=false
+#gcc flags
 stupid_glags="-fsanitize=address -fsanitize=leak -fsanitize=undefined -fsanitize=unreachable"
 
 # Function to print usage
 usage() {
-    echo "Usage: $0 [-m]"
+    echo "\nUsage:  $0  \t\t| run test.c\n"
+    echo "\t$0 file.c \t| file.c\n"
+    echo "\t$0 -m file.c \t| run file.c and link math\n"
+    echo "\t$0 -v file.c \t| run file.c anf valgrind\n"
     exit 1
 }
 
 # Parse options
-while getopts "m" opt; do
+while getopts "mv" opt; do
     case $opt in
         m)
             link=true
+            ;;
+        v)
+            grinder=true
             ;;
         *)
             usage
@@ -53,7 +62,9 @@ if [ -f $target ]; then
         exit 1
     fi
     echo 'COMPILEMD!!!'
-    valgrind --tool=memcheck --leak-check=yes ./a.out
+
+    if $grinder; then valgrind --tool=memcheck --leak-check=yes ./a.out; fi
+    
     printf "*-*-*-*-*-*-*-*-*-*-*result*-*-*-*-*-*-*-*-*-*-*\n\n"
     ./a.out
 else
