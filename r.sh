@@ -58,9 +58,9 @@ fi
 if [ -f $target ]; then
     echo 'CLAMG??'
 
-    if $style; then clang-format -i *.c; fi
+    if $style; then clang-format -i $target; fi
 
-    echo 'CLAMG FOMAT SAID: '$(clang-format -n *.c)
+    echo 'CLAMG FOMAT SAID: '$(clang-format -n $target)
 
     cppcheck --enable=all --suppress=missingIncludeSystem $target
 
@@ -77,7 +77,7 @@ if [ -f $target ]; then
     fi
     echo 'COMPILEMD!!!'
 
-    if $grinder; then $(valgrind --tool=memcheck --leak-check=yes ./a.out); 
+    if $grinder; then $(valgrind --tool=memcheck --leak-check=yes --track-origins=yes -s ./a.out); 
     else
         printf "*-*-*-*-*-*-*-*-*-*-*result*-*-*-*-*-*-*-*-*-*-*\n\n"
         ./a.out
