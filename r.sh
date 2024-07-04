@@ -58,9 +58,9 @@ fi
 if [ -f $target ]; then
     echo 'CLAMG??'
 
-    if $style; then clang-format -i $target; fi
+    if $style; then clang-format -i *.c; fi
 
-    echo 'CLAMG FOMAT SAID: '$(clang-format -n $target)
+    echo 'CLAMG FOMAT SAID: '$(clang-format -n *.c)
 
     cppcheck --enable=all --suppress=missingIncludeSystem $target
 
