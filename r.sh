@@ -56,26 +56,28 @@ handle_multiple_files() {
             exit 1
         fi
 
-        cppcheck --enable=all --suppress=missingIncludeSystem $files
+        cppcheck --enable=all --suppress=missingIncludeSystem $file
+        clang-format -i $file
 
         # gcc -x c -std=c11 -Wall -Werror -Wextra $files $link;
-        if $grinder; then
-            gcc -x c -std=c11 -Wall -Werror -Wextra $target $link;
-        else
-            gcc -x c -std=c11 -Wall -Werror -Wextra $target $link $stupid_glags;
-        fi
+        # if $grinder; then
+        #     gcc -x c -std=c11 -Wall -Werror -Wextra $target $link;
+        # else
+        #     gcc -x c -std=c11 -Wall -Werror -Wextra $target $link $stupid_glags;
+        # fi
 
-        if [ $? -ne 0 ]; then
-            echo "EBANIY ROT ETOGO KAZINO"
-            exit 1
-        fi
-        echo 'COMPILEMD!!!'
+        # if [ $? -ne 0 ]; then
+        #     echo "EBANIY ROT ETOGO KAZINO"
+        #     exit 1
+        # fi
+        # echo 'COMPILEMD!!!'
 
-        if $grinder; then $(valgrind --tool=memcheck --leak-check=yes --track-origins=yes -s ./a.out);
-        else
+        # if $grinder; then $(valgrind --tool=memcheck --leak-check=yes --track-origins=yes -s ./a.out);
+        # else
             printf "*-*-*-*-*-*-*-*-*-*-* $file *-*-*-*-*-*-*-*-*-*-*\n\n"
-            ./a.out
-        fi
+        clang-format -n $file
+            # ./a.out
+        # fi
         # Add your processing commands here
 #         cat "$file"
     done
